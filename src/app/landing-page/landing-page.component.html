@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Uptime Monitor</title>
+</head>
+<body>
+  <div id="topbar" class="d-flex align-items-center fixed-top">
+    <div class="container d-flex justify-content-between">
+      <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-envelope"></i> <a href="mailto:contact@example.com">Tecnológico de Monterrey</a>
+      </div>
+      <div class="contact-info d-flex align-items-right">
+         <a href="mailto:contact@example.com">Laboratorio de aplicaciones web</a>
+      </div>
+    </div>
+  </div>
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+      <h1 class="logo me-auto"><a href="index.html">Uptime Monitor</a></h1>
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li *ngIf="(auth.isAuthenticated$ | async ) === false;"><a class="nav-link scrollto">Home</a></li>
+          <li *ngIf="(auth.isAuthenticated$ | async ) === false;"><a class="nav-link scrollto"><app-login-button></app-login-button></a></li>
+          <li *ngIf="(auth.isAuthenticated$ | async ) === true;"><a class="nav-link scrollto"><app-logout-button></app-logout-button></a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+    </div>
+  </header>
+  <section id="hero" *ngIf="(auth.isAuthenticated$ | async ) === false;"   class="d-flex align-items-center" >
+    <div class="container" id="fondo"  >
+      <h1>Uptime Monitor</h1>
+      <h2>¡Verifica la disponibilidad de tu dominio ahora!</h2>
+    </div>
+  </section>
+  <section id="hero2"  *ngIf="(auth.isAuthenticated$ | async ) === true;" class="d-flex align-items-center">
+    <form section >
+      <div class="container" *ngIf="auth.user$ | async as user">
+      <div class="form-group" >
+        <label for="exampleInputEmail1">Correo Electrónico</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{user.email}}" disabled>
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Ingresa tu dominio</label>
+        <input type="text" class="form-control" id="example" placeholder="https://www.example.com">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </section>
+  <main id="main">
+    <section id="why-us" class="why-us" *ngIf="(auth.isAuthenticated$ | async ) === false;">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 d-flex align-items-stretch">
+            <div class="content">
+              <h3>¿Por qué Monitor Realtime?</h3>
+              <p>
+                Monitor Realtime te otorgará la seguridad de que tu dominio está recibiendo las peticiones correctamente, te ayudará a verificar la disponibilidad
+                de tu sitio web, para que siempre brindes la mejor experiencia desde tu dominio.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <table class="table" *ngIf="(auth.isAuthenticated$ | async ) === true;" >
+    <thead>
+      <tr>
+        <td>Hora:</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>13:45</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

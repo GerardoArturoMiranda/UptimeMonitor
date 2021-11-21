@@ -1,9 +1,16 @@
+let domain = "dev-1vpzyela.us.auth0.com"
+let clientId = "VlfCZtDgH8FWuyunXRABTYz4WJ5KhAEm"
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  auth: {
+    domain,
+    clientId,
+    redirectUri: window.location.origin
+  }
 };
 
 /*
