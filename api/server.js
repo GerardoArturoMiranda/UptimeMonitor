@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const port = 3000
+var db = require("./models")
 const cron = require('node-cron');
 const cors= require("cors")
 const nodemailer = require('nodemailer');
@@ -15,6 +16,10 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+const { Usuarios } = require("./models")
+const { Urls } = require("./models") 
+const { Historiales } = require("./models") 
+
 var corsOptions = {
     origin:"*",
     optionSuccessStatus: 200,
@@ -22,6 +27,13 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 app.options("*",cors())
+
+db.sequelize.sync().then((req)=>{
+    var server = app.listen(process.env.PORT || 5000, function () {
+        var port = server.address().port;
+        console.log("App now running on port", port);
+    });
+})
 
 /*Esta lista se tiene que sustituir por datos en la base de datos, dentro del cron llamar base y loop*/
 
