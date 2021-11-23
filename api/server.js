@@ -30,7 +30,7 @@ app.use(cors(corsOptions));
 app.options("*",cors())
 
 db.sequelize.sync().then((req)=>{
-    var server = app.listen(process.env.PORT || 5000, function () {
+    var server = app.listen(process.env.PORT || 3000, function () {
         var port = server.address().port;
         console.log("App now running on port", port);
     });
@@ -93,9 +93,9 @@ app.post("/usuarios",function(req,res){
     })
 });
 
-app.get("/usuarios/:id",function(req,res){
-    const idUser = req.params.id 
-    Usuarios.findOne({ where: {id: idUser} }).then(function(user) {
+app.get("/usuarios/:idAuth",function(req,res){
+    const idAuth = req.params.idAuth 
+    Usuarios.findOne({ where: {auth_id: idAuth} }).then(function(user) {
         if (user != null){
             const resultUser = JSON.stringify(user)
             res.status(200).json({response:resultUser})
