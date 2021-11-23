@@ -6,15 +6,8 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         id_usuario:{
-            type:DataTypes.INTEGER(11),
-            allowNull: false,
-            references:{
-                model: "Usuarios",
-                key: "id"
-            },
-            onUpdate: 'CASCADE',
-            onDelete: 'CASCADE',
-        },     
+            type:DataTypes.STRING
+        }   
     })
 
     return Urls

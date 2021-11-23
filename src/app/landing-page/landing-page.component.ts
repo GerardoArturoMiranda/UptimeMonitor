@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
-
+import { LandingService } from './landing.service';
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
@@ -8,13 +9,33 @@ import { AuthService } from '@auth0/auth0-angular';
 })
 export class LandingPageComponent implements OnInit {
   profile: string = "";
-  constructor(public auth: AuthService) {
-    this.auth.user$.subscribe((profile) => (this.profile = JSON.stringify(profile, null, 2)))
+  public url: string ="";
+  public correo: string =""
+
+  constructor(public auth: AuthService, private landService: LandingService) {
+    this.auth.user$.subscribe((profile) => (this.profile = JSON.stringify(profile?.email, null, 2)))
    }
+
+
+  createUrl(url:string,correo:string){
+    this.url = url.toString()
+    console.log(correo)
+    this.correo = correo.toString()
+    this.landService.createUrl(this.url,this.correo).subscribe(res => console.log("Creado"))
+    
+  }
+
+  getUrls(correo:string){
+    this.correo = correo.toString()
+    this.landService.findUrls(this.correo).subscribe(res => console.log(res))
+  }
  
+  getHistory(url:string){
+    this.landService.getHistory(this.profile).subscribe(res => console.log(res))
+  }
 
   ngOnInit(): void {
-   
+    
   }
 
 }

@@ -37,20 +37,26 @@
     </div>
   </section>
   <section id="hero2"  *ngIf="(auth.isAuthenticated$ | async ) === true;" class="d-flex align-items-center">
-    <form section >
+    <form section (ngSubmit)="createUrl(f)" #f="ngForm" >
       <div class="container" *ngIf="auth.user$ | async as user">
       <div class="form-group" >
         <label for="exampleInputEmail1">Correo Electrónico</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{user.email}}" disabled>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{user.email}}" disabled #correo>
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
       </div>
-      <div class="form-group">
         <label for="exampleInputPassword1">Ingresa tu dominio</label>
-        <input type="text" class="form-control" id="example" placeholder="https://www.example.com">
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+        <input type="text" class="form-control" id="example" #url>
+      <input type="button" (click)="createUrl(url.value, correo.value)" class="btn btn-primary px-4 mr-2" value="Subir">
       </div>
     </form>
+      
+  </section>
+<section *ngIf="(auth.isAuthenticated$ | async ) === true;" class="d-flex align-items-center">
+  <form section (ngSubmit)="getUrls(f)" #f="ngForm" >
+  <label for="exampleInputEmail1">Correo Electrónico  a buscar</label>
+  <input type="email" class="form-control"  aria-describedby="emailHelp"  #correo>
+  <input type="button" class="btn btn-primary px-4 mr-2" (click)="getUrls(correo.value)" value="Buscar">
+  </form>
   </section>
   <main id="main">
     <section id="why-us" class="why-us" *ngIf="(auth.isAuthenticated$ | async ) === false;">

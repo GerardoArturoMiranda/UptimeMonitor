@@ -44,7 +44,7 @@ const usuarios = [
     {"nombre": "El papi", "sitiosAsociados": ["https://google.com"],"correos":["papi@gmail.com"], "historial":[{"sitio":"algo","status":200}]}
 ]
 
-cron.schedule('*/1 * * * *', () => {
+cron.schedule('*/60 * * * *', () => {
     usuarios.forEach(usuario =>{
         usuario.sitiosAsociados.forEach(sitio =>{
             console.log("Para el sitio: "+sitio)
@@ -70,9 +70,7 @@ cron.schedule('*/1 * * * *', () => {
 
 });
 
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
-  })
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -122,7 +120,7 @@ app.post("/urls",function(req,res){
 
 app.get("/urls/:idUser",function(req,res){
     const idUser = req.params.idUser 
-    Urls.findOne({ where: {id_usuario: idUser} }).then(function(url) {
+    Urls.findAll({ where: {id_usuario: idUser} }).then(function(url) {
         if (url != null){
             const resultUrl = JSON.stringify(url)
             res.status(200).json({response:resultUrl})
@@ -149,7 +147,7 @@ app.post("/historial",function(req,res){
 
 app.get("/historial/:idUrl",function(req,res){
     const idUrl = req.params.idUrl 
-    Historiales.findOne({ where: {id_url: idUrl} }).then(function(historial) {
+    Historiales.findAll({ where: {id_url: idUrl} }).then(function(historial) {
         if (historial != null){
             const resultHistorial = JSON.stringify(historial)
             res.status(200).json({response:resultHistorial})

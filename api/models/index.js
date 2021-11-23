@@ -22,14 +22,10 @@ fs
   })
   .forEach(file => {
     if (counter == 0 ) {
-      const model = require(path.join(__dirname, "Usuarios.js"))(sequelize, Sequelize.DataTypes);
-      db[model.name] = model;
-      counter = counter + 1
-    } else if (counter == 1  ) {
         const model = require(path.join(__dirname, "Urls.js"))(sequelize, Sequelize.DataTypes);
         db[model.name] = model;
         counter = counter + 1
-    } else if (counter == 2){
+    } else if (counter == 1){
         const model = require(path.join(__dirname, "Historiales.js"))(sequelize, Sequelize.DataTypes);
         db[model.name] = model;
         counter = counter + 1
