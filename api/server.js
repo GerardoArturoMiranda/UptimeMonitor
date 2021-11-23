@@ -24,7 +24,8 @@ var corsOptions = {
     origin:"*",
     optionSuccessStatus: 200,
 }
-
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
 app.use(cors(corsOptions));
 app.options("*",cors())
 
@@ -75,8 +76,89 @@ app.listen(port, () => {
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
-})
+});
+/* Endpoints Usuarios */
+app.post("/usuarios",function(req,res){
+    const nombre = req.body.nombre
+    const correo = req.body.correo
+    const idAuth = req.body.idAuth
+    Usuarios.create({
+        nombre: nombre,
+        correo: correo,
+        auth_id: idAuth
+    }).then((users)=>{
+        res.status(201).json({response:"Creado con éxito"})
+    }).catch((error)=>{
+        res.status(500).json({Error:error})
+    })
+});
 
+app.get("/usuarios/:id",function(req,res){
+    const idUser = req.params.id 
+    Usuarios.findOne({ where: {id: idUser} }).then(function(user) {
+        if (user != null){
+            const resultUser = JSON.stringify(user)
+            res.status(200).json({response:resultUser})
+        } else {
+            res.status(404).json({response:"Usuario no encontrado"})
+        }
+
+    })
+});
+
+/*Endpoint Urls */ 
+app.post("/urls",function(req,res){
+    const direccionUrl = req.body.direccionUrl
+    const idUser = req.body.idUsuario
+    Urls.create({
+        direccion_url: direccionUrl,
+        id_usuario: idUser,
+    }).then((urls)=>{
+        res.status(201).json({response:"Creado con éxito"})
+    }).catch((error)=>{
+        res.status(500).json({Error:error})
+    })
+});
+
+app.get("/urls/:idUser",function(req,res){
+    const idUser = req.params.idUser 
+    Urls.findOne({ where: {id_usuario: idUser} }).then(function(url) {
+        if (url != null){
+            const resultUrl = JSON.stringify(url)
+            res.status(200).json({response:resultUrl})
+        } else {
+            res.status(404).json({response:"Url no encontrado"})
+        }
+
+    })
+});
+
+/*Endpoint Historiales */ 
+app.post("/historial",function(req,res){
+    const status = req.body.status
+    const idUrl = req.body.idUrl
+    Historiales.create({
+        status: status,
+        id_url: idUrl,
+    }).then((historial)=>{
+        res.status(201).json({response:"Creado con éxito"})
+    }).catch((error)=>{
+        res.status(500).json({Error:error})
+    })
+});
+
+app.get("/historial/:idUrl",function(req,res){
+    const idUrl = req.params.idUrl 
+    Historiales.findOne({ where: {id_url: idUrl} }).then(function(historial) {
+        if (historial != null){
+            const resultHistorial = JSON.stringify(historial)
+            res.status(200).json({response:resultHistorial})
+        } else {
+            res.status(404).json({response:"Historial no encontrado"})
+        }
+
+    })
+});
 
 function mandarCorreo(correo, sitio){
     const mailData = {
