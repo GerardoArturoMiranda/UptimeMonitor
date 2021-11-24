@@ -44,28 +44,29 @@ const usuarios = [
     {"nombre": "El papi", "sitiosAsociados": ["https://google.com"],"correos":["papi@gmail.com"], "historial":[{"sitio":"algo","status":200}]}
 ]
 
-cron.schedule('*/60 * * * *', () => {
-    usuarios.forEach(usuario =>{
-        usuario.sitiosAsociados.forEach(sitio =>{
-            console.log("Para el sitio: "+sitio)
-            axios.get(sitio)
+cron.schedule('*/1 * * * *', () => {
+    Urls.findAll({}).then(function(url) {
+        url.forEach(valor=>{
+            console.log("Para el sitio "+valor.dataValues.direccion_url)
+            console.log("Del usuario "+valor.dataValues.id_usuario)
+            axios.get(valor.dataValues.direccion_url)
             .then(function (response) {
-                    console.log("El sitio "+ sitio+ " esta bien");
+                    console.log("El sitio "+ valor.dataValues.direccion_url+ " esta bien");
                     console.log(response.data.code);  
                     //Guardar registro en base de datos
             })
         
             .catch(function (error) {
-                usuario.correos.forEach(correo =>{
-                    console.log("A este correo va: "+correo)
-                    mandarCorreo(correo,sitio)
+                    console.log("A este correo va: "+valor.dataValues.id_usuario)
+                    mandarCorreo(valor.dataValues.id_usuario,valor.dataValues.direccion_url)
                     //Guardar registro en base de datos
-                })
+                
     
             })
         })
 
     })
+
 
 
 });
