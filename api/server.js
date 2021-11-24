@@ -54,12 +54,27 @@ cron.schedule('*/1 * * * *', () => {
                     console.log("El sitio "+ valor.dataValues.direccion_url+ " esta bien");
                     console.log(response.data.code);  
                     //Guardar registro en base de datos
+                    Historiales.create({
+                        status: response.data.code,
+                        id_url: valor.dataValues.direccion_url,
+                    }).then((historial)=>{
+                        console.log("almacenado")
+                    }).catch((error)=>{
+                        console.log(error)
+                    })
             })
         
             .catch(function (error) {
                     console.log("A este correo va: "+valor.dataValues.id_usuario)
                     mandarCorreo(valor.dataValues.id_usuario,valor.dataValues.direccion_url)
-                    //Guardar registro en base de datos
+                    Historiales.create({
+                        status: 500,
+                        id_url: valor.dataValues.direccion_url,
+                    }).then((historial)=>{
+                        console.log("almacenado")
+                    }).catch((error)=>{
+                        console.log(error)
+                    })
                 
     
             })

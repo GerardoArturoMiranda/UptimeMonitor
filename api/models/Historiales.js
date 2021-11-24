@@ -6,14 +6,9 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         id_url:{
-            type:DataTypes.INTEGER(11),
+            type:DataTypes.STRING,
             allowNull: false,
-            references:{
-                model: "Urls",
-                key: "id"
-            },
-            onUpdate: 'CASCADE',
-            onDelete: 'CASCADE',
+            
         },     
     })
 
