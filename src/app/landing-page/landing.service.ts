@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from '@auth0/auth0-angular';
-
+import { GetResponse } from './models/tupla.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +14,7 @@ export class LandingService {
 
   findUrls(mail:String){
     let getUrl = this.url+"urls/"+mail
-    return this.http.get(getUrl)
+    return this.http.get<GetResponse>(getUrl)
   }
 
   createUrl(url:String, mail:String){
