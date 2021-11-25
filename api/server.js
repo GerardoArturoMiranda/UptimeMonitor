@@ -44,7 +44,7 @@ const usuarios = [
     {"nombre": "El papi", "sitiosAsociados": ["https://google.com"],"correos":["papi@gmail.com"], "historial":[{"sitio":"algo","status":200}]}
 ]
 
-cron.schedule('*/10 * * * *', () => {
+cron.schedule('*/1 * * * *', () => {
     Urls.findAll({}).then(function(url) {
         url.forEach(valor=>{
             console.log("Para el sitio "+valor.dataValues.direccion_url)

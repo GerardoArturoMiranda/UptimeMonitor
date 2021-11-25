@@ -24,7 +24,7 @@ export class LandingPageComponent implements OnInit {
     this.url = url.toString()
     console.log(correo)
     this.correo = correo.toString()
-    this.landService.createUrl(this.url,this.correo).subscribe(res => console.log("Creado"))
+    this.landService.createUrl(this.url,this.correo).subscribe(res => alert("Creado"))
     
   }
 
