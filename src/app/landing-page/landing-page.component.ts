@@ -28,7 +28,7 @@ export class LandingPageComponent implements OnInit {
 
   getUrls(correo:string){
     this.correo = correo.toString()
-    this.landService.findUrls(this.correo).subscribe(res => this.direcciones == res)
+    this.landService.findUrls(this.correo).subscribe(res => console.log(res))
   }
  
   getHistory(url:string){

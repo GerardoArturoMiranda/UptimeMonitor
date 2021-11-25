@@ -111,7 +111,8 @@ app.get("/usuarios/:idAuth",function(req,res){
     const idAuth = req.params.idAuth 
     Usuarios.findOne({ where: {auth_id: idAuth} }).then(function(user) {
         if (user != null){
-            res.status(200).json({response:user})
+            const resultUser = JSON.stringify(user)
+            res.status(200).json({response:resultUser})
         } else {
             res.status(404).json({response:"Usuario no encontrado"})
         }
@@ -137,8 +138,7 @@ app.get("/urls/:idUser",function(req,res){
     const idUser = req.params.idUser 
     Urls.findAll({ where: {id_usuario: idUser} }).then(function(url) {
         if (url != null){
-            const resultUrl = JSON.stringify(url)
-            res.status(200).json({response:resultUrl})
+            res.status(200).json({response:url})
         } else {
             res.status(404).json({response:"Url no encontrado"})
         }
