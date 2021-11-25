@@ -160,12 +160,11 @@ app.post("/historial",function(req,res){
     })
 });
 
-app.get("/historial/:idUrl",function(req,res){
-    const idUrl = req.params.idUrl 
+app.post("/historial/ver",function(req,res){
+    const idUrl = req.body.idUrl 
     Historiales.findAll({ where: {id_url: idUrl} }).then(function(historial) {
         if (historial != null){
-            const resultHistorial = JSON.stringify(historial)
-            res.status(200).json({response:resultHistorial})
+            res.status(200).json({response:historial})
         } else {
             res.status(404).json({response:"Historial no encontrado"})
         }

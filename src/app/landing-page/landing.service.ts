@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from '@auth0/auth0-angular';
-import { GetResponse } from './models/tupla.model';
+import { GetResponse, GetResponseH } from './models/tupla.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -28,8 +28,10 @@ export class LandingService {
   }
 
   getHistory(idUrl:String){
-    let getUrl = this.url+"historial/"+idUrl
-    return this.http.get(getUrl)
+    let getUrl = this.url+"historial/ver"
+    return this.http.post<GetResponseH>(getUrl,{
+      "idUrl":idUrl
+    })
   }
     
   

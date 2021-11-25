@@ -9,3 +9,16 @@ export interface User{
 export interface GetResponse {
   response: User[];
 }
+
+export interface Historial{
+  id: number;
+  status: string;
+  id_url: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface GetResponseH {
+  response: Historial[];
+}
+

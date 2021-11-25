@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { LandingService } from './landing.service';
 import { NgForm } from '@angular/forms';
-import { User } from './models/tupla.model';
+import { User,Historial } from './models/tupla.model';
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
@@ -13,6 +13,7 @@ export class LandingPageComponent implements OnInit {
   public url: string ="";
   public correo: string =""
   public direcciones : User[] = []
+  public historial : Historial[] = []
 
   constructor(public auth: AuthService, private landService: LandingService) {
     this.auth.user$.subscribe((profile) => (this.profile = JSON.stringify(profile?.email, null, 2)))
@@ -33,7 +34,7 @@ export class LandingPageComponent implements OnInit {
   }
  
   getHistory(url:string){
-    this.landService.getHistory(this.profile).subscribe(res => console.log(res))
+    this.landService.getHistory(url).subscribe(res => this.historial = res.response)
   }
 
   ngOnInit(): void {
