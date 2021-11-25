@@ -111,8 +111,7 @@ app.get("/usuarios/:idAuth",function(req,res){
     const idAuth = req.params.idAuth 
     Usuarios.findOne({ where: {auth_id: idAuth} }).then(function(user) {
         if (user != null){
-            const resultUser = JSON.stringify(user)
-            res.status(200).json({response:resultUser})
+            res.status(200).json({response:user})
         } else {
             res.status(404).json({response:"Usuario no encontrado"})
         }

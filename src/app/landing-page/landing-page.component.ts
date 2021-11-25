@@ -11,7 +11,7 @@ export class LandingPageComponent implements OnInit {
   profile: string = "";
   public url: string ="";
   public correo: string =""
-  public direcciones: any
+  public direcciones = []
 
   constructor(public auth: AuthService, private landService: LandingService) {
     this.auth.user$.subscribe((profile) => (this.profile = JSON.stringify(profile?.email, null, 2)))
