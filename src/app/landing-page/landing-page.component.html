@@ -57,6 +57,14 @@
   <input type="email" class="form-control"  aria-describedby="emailHelp"  #correo>
   <input type="button" class="btn btn-primary px-4 mr-2" (click)="getUrls(correo.value)" value="Buscar">
   </form>
+  <table>
+  <tr>
+    <th>URLS</th>
+  </tr>
+  <tr *ngFor="let item of direcciones">
+    <td>{{item.url}}</td>
+  </tr>
+</table>
   </section>
   <main id="main">
     <section id="why-us" class="why-us" *ngIf="(auth.isAuthenticated$ | async ) === false;">

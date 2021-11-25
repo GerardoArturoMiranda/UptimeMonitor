@@ -11,6 +11,7 @@ export class LandingPageComponent implements OnInit {
   profile: string = "";
   public url: string ="";
   public correo: string =""
+  public direcciones: any
 
   constructor(public auth: AuthService, private landService: LandingService) {
     this.auth.user$.subscribe((profile) => (this.profile = JSON.stringify(profile?.email, null, 2)))
@@ -27,7 +28,7 @@ export class LandingPageComponent implements OnInit {
 
   getUrls(correo:string){
     this.correo = correo.toString()
-    this.landService.findUrls(this.correo).subscribe(res => console.log(res))
+    this.landService.findUrls(this.correo).subscribe(res => this.direcciones == res)
   }
  
   getHistory(url:string){
